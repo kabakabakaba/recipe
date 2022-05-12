@@ -37,3 +37,6 @@ yarn-debug.log*
 
 /.solargraph.yml
 /.vscode/*
+
+/.rubocop_todo.yml
+/.rubocop.yml
