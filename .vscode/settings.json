@@ -1,0 +1,8 @@
+{
+    "solargraph.useBundler": true,
+    "ruby.useBundler": true,
+    "ruby.lint": {
+        "rubocop": true
+    },
+    "solargraph.bundlerPath": "/Users/yusuke/.anyenv/envs/rbenv/versions/2.6.10/bin/bundle"
+}
