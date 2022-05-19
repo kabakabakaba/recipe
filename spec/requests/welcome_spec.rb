@@ -1,5 +1,4 @@
 require 'rails_helper'
-# login_user
 
 RSpec.describe "Welcomes", type: :request do
   let(:user) { create(:user) }
