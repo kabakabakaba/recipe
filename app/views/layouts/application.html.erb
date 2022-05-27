@@ -12,7 +12,7 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-expand navbar-light" style="background-color: #F7EAD0;">
+    <nav class="navbar navbar-expand navbar-dark" style="background-color: #7C0A02;">
       <div class="container-fluid">
         <%= link_to "MYREPI", root_path, class: "navbar-brand"%>
         <ul class="navbar-nav ml-auto">
@@ -27,7 +27,7 @@
               </ul>
             </li>
           <% else %>
-            <li class="nav-item"><%= link_to 'アカウント登録', new_user_registration_path, class: "nav-link" %></li>
+            <li class="nav-item"><%= link_to '新規登録', new_user_registration_path, class: "nav-link" %></li>
             <li class="nav-item"><%= link_to 'ログイン', new_user_session_path, class: "nav-link" %></li>
           <% end %>
         </ul>
