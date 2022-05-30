@@ -1,43 +1,58 @@
-<h2><%= t('.title', resource: resource.model_name.human) %></h2>
+<div class="text-center m-5">
+  <main class="form-edituser">
+    <h1 class="h3 mb-3 fw-normal">
+      <%= t('.title', resource: resource.model_name.human) %>
+    </h1>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+      <div class="mb-3">
+        <%= f.label :email, class: "form-label", for: "emailInput" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", id: "emailInput" %>
+      </div>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <div><%= t('.currently_waiting_confirmation_for_email', email: resource.unconfirmed_email) %></div>
+      <% end %>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div><%= t('.currently_waiting_confirmation_for_email', email: resource.unconfirmed_email) %></div>
-  <% end %>
+      <div class="mb-3">
+        <%= f.label :password, class: "form-label", for: "passwordInput" %>
+        <%= f.password_field :password, autocomplete: "new-password", class: "form-control", id: "passwordInput" %>
+        <div id="passwordInputhelp" class="form-text">
+          <% if @minimum_password_length %>
+            <%= t('devise.shared.minimum_password_length', count: @minimum_password_length) %>
+          <% end %>
+          *<%= t('.leave_blank_if_you_don_t_want_to_change_it') %>
+        </div>
+      </div>
 
-  <div class="field">
-    <%= f.label :password %> <i>(<%= t('.leave_blank_if_you_don_t_want_to_change_it') %>)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= t('devise.shared.minimum_password_length', count: @minimum_password_length) %></em>
+      <div class="mb-3">
+        <%= f.label :password_confirmation, class: "form-label", for: "passwordConfirmationInput" %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", id: "passwordConfirmationInput" %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :current_password, class: "form-label", for: "passwordCurrentPassword" %>
+        <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control", id: "passwordCurrentPassword" %>
+        <div id="currentpasswordhelp" class="form-text">
+          <%= t('.we_need_your_current_password_to_confirm_your_changes') %>
+        </div>
+      </div>
+
+      <%= f.submit t('.update'), class: "btn btn-primary" %>
     <% end %>
-  </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+    <hr>
+    <h1 class="h3 mb-4 fw-normal">
+      <%= t('.cancel_my_account') %>
+    </h1>
 
-  <div class="field">
-    <%= f.label :current_password %> <i>(<%= t('.we_need_your_current_password_to_confirm_your_changes') %>)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
+    <p><%= t('.unhappy') %></p>
+    <%= button_to t('.cancel_my_account'), registration_path(resource_name), data: { confirm: t('.are_you_sure') }, method: :delete, class: "btn btn-danger btn-sm" %>
 
-  <div class="actions">
-    <%= f.submit t('.update') %>
-  </div>
-<% end %>
-
-<h3><%= t('.cancel_my_account') %></h3>
-
-<p><%= t('.unhappy') %> <%= button_to t('.cancel_my_account'), registration_path(resource_name), data: { confirm: t('.are_you_sure') }, method: :delete %></p>
-
-<%= link_to t('devise.shared.links.back'), :back %>
+    <hr>
+    <div class="d-grid py-3">
+      <%= link_to t('devise.shared.links.back'), :back ,class: "btn btn-secondary" %>
+    </div>
+  </main>
+</div>

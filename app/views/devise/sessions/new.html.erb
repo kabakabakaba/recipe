@@ -1,26 +1,29 @@
-<h2><%= t('.sign_in') %></h2>
+<div class="text-center m-5">
+  <main class="form-signin">
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <%= image_tag 'img_logo.png', class: "mb-4" , size: "100x100"%>
+      <h1 class="h3 mb-3 fw-normal"><%= t('.sign_in') %></h1>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+      <div class="form-floating">
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", id: "emailInput" %>
+        <%= f.label :email , class: "form-label", for: "emailInput" %>
+      </div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
+      <div class="form-floating">
+        <%= f.password_field :password, autocomplete: "current-password", class: "form-control", id: "passwordInput" %>
+        <%= f.label :password, class: "form-label", for: "passwordInput" %>
+      </div>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
-    </div>
-  <% end %>
+      <% if devise_mapping.rememberable? %>
+        <div class="field">
+          <%= f.check_box :remember_me, class: "checkbox mb-3" %>
+          <%= f.label :remember_me %>
+        </div>
+      <% end %>
 
-  <div class="actions">
-    <%= f.submit t('.sign_in') %>
-  </div>
-<% end %>
+      <%= f.submit t('.sign_in'), class: "w100 btn btn-lg btn-primary" %>
+    <% end %>
+    <%= render "devise/shared/links" %>
+  </main>
 
-<%= render "devise/shared/links" %>
+</div>
