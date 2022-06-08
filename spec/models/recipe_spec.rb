@@ -27,7 +27,7 @@ RSpec.describe Recipe, type: :model do
       end
 
       it 'nameが51文字以上だとエラー' do
-        recipe.name = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        recipe.name = Faker::Lorem.characters(number: 51)
         expect(recipe).to be_invalid
       end
     end
@@ -36,6 +36,11 @@ RSpec.describe Recipe, type: :model do
       it 'エラーにならない' do
         recipe.text = nil
         expect(recipe).to be_valid
+      end
+
+      it '300文字より多い' do
+        recipe.text = Faker::Lorem.characters(number: 301)
+        expect(recipe).to be_invalid
       end
     end
 
