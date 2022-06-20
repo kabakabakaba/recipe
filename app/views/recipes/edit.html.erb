@@ -1,0 +1,6 @@
+<div class="container">
+	<h1>編集</h1>
+	<hr>
+	<h3><%= @recipe.name %>の作り方</h1>
+	<%= render partial: 'recipeform', locals: { recipe: @recipe } %>
+</div>
