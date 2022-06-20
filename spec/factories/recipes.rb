@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :recipe do
-    name { 'MyString' }
-    text { 'MyText' }
+    sequence(:name) { |i| "recipe#{i}" }
+    text { Faker::Food.description }
     recent_at { '2022-06-03' }
     user
   end
