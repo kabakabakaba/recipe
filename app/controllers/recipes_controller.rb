@@ -2,11 +2,16 @@ class RecipesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @recipes = Recipe.user_recipe_get(current_user.id)
+    @recipes = Recipe.user_recipes_get(current_user.id)
   end
 
   def new
     @recipe = Recipe.new
+  end
+
+  def show
+    @recipe = Recipe.user_recipe_get(params[:id], current_user.id)
+    p @recipe
   end
 
   def edit
@@ -26,7 +31,7 @@ class RecipesController < ApplicationController
   def update
     recipe = Recipe.find(params[:id])
     if recipe.update(recipe_params)
-      redirect_to recipes_path, notice: 'レシピを変更しました。'
+      redirect_to recipe_path(params[:id]), notice: 'レシピを変更しました。'
     else
       flash[:alert] = 'レシピの登録に失敗しました。'
       render :new
