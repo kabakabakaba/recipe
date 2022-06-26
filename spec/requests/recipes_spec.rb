@@ -24,20 +24,16 @@ RSpec.describe 'Recipes', type: :request do
 
   describe 'GET /show' do
     context 'without ログイン' do
-      before do
-        @user = user
-        other_user = user
-        @recipe = FactoryBot.create(:recipe, user_id: other_user.id)
-      end
+      let(:other_user) { user }
+      let(:recipe) { create(:recipe, user_id: other_user.id) }
 
       it 'ログインしていない場合、リダイレクトされる' do
-        puts @recipe.id
-        get :show, params: { id: @recipe.id }
+        get "/recipes/#{recipe.id}"
         expect(response).to have_http_status(:found)
       end
 
       it 'ログインしていない場合、サインインに遷移される' do
-        get '/recipes'
+        get "/recipes/#{recipe.id}"
         expect(response).to redirect_to('/users/sign_in')
       end
     end
