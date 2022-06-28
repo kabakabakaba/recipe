@@ -36,6 +36,10 @@ RSpec.describe 'Recipes', type: :request do
         get "/recipes/#{recipe.id}"
         expect(response).to redirect_to('/users/sign_in')
       end
+
+      xit '違うユーザーのレシピにアクセス出来ない' do
+
+      end
     end
   end
 end

@@ -10,8 +10,8 @@ class RecipesController < ApplicationController
   end
 
   def show
-    @recipe = Recipe.user_recipe_get(params[:id], current_user.id)
-    p @recipe
+    @recipe = Recipe.user_recipe_get(current_user.id, params[:id])
+    redirect_to recipes_path, alert: 'レシピにアクセス出来ません' if @recipe.nil?
   end
 
   def edit
