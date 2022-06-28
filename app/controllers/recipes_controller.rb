@@ -11,7 +11,7 @@ class RecipesController < ApplicationController
 
   def show
     @recipe = Recipe.user_recipe_get(current_user.id, params[:id])
-    redirect_to recipes_path, alert: 'レシピにアクセス出来ません' if @recipe.nil?
+    redirect_to recipes_path, status: :found, alert: 'レシピにアクセス出来ません' if @recipe.nil?
   end
 
   def edit

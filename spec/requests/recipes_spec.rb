@@ -23,10 +23,10 @@ RSpec.describe 'Recipes', type: :request do
   end
 
   describe 'GET /show' do
-    context 'without ログイン' do
-      let(:other_user) { user }
-      let(:recipe) { create(:recipe, user_id: other_user.id) }
+    let(:other_user) { create(:user) }
+    let(:other_recipe) { create(:recipe, user_id: other_user.id) }
 
+    context 'without ログイン' do
       it 'ログインしていない場合、リダイレクトされる' do
         get "/recipes/#{recipe.id}"
         expect(response).to have_http_status(:found)
@@ -36,9 +36,25 @@ RSpec.describe 'Recipes', type: :request do
         get "/recipes/#{recipe.id}"
         expect(response).to redirect_to('/users/sign_in')
       end
+    end
 
-      xit '違うユーザーのレシピにアクセス出来ない' do
+    context 'when ログイン状態' do
+      it 'ログインしていて、自分のレシピならアクセスできる' do
+        sign_in user
+        get "/recipes/#{recipe.id}"
+        assert_response :success
+      end
 
+      it '違うユーザーのレシピにアクセスするとリダイレクトされる' do
+        sign_in user
+        get "/recipes/#{other_recipe.id}"
+        expect(response).to have_http_status(:found)
+      end
+
+      it '違うユーザーのレシピにアクセスするとレシピ一覧にリダイレクトされる' do
+        sign_in user
+        get "/recipes/#{other_recipe.id}"
+        expect(response).to redirect_to('/recipes')
       end
     end
   end
