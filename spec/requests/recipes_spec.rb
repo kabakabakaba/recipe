@@ -58,4 +58,34 @@ RSpec.describe 'Recipes', type: :request do
       end
     end
   end
+
+  describe 'POST /recipes' do
+    let(:user) { create(:user) }
+
+    context 'when ログイン状態' do
+      before do
+        sign_in user
+        @recipe_params = FactoryBot.attributes_for(:recipe)
+        @recipe_params['user_id'] = user.id
+      end
+
+      it 'リクエストが成功したらshowアクションにリダイレクトすること' do
+        post recipes_path, params: { recipe: @recipe_params }
+        expect(response).to redirect_to(recipes_path)
+      end
+
+      it 'リクエストが成功したらレシピが１件保存されていること' do
+        expect {
+          post recipes_path, params: { recipe: @recipe_params }
+        }.to change(user.recipes, :count).by(1)
+      end
+
+      it 'リクエストが不正な場合は保存されていないこと' do
+        @recipe_params[:name] = ''
+        expect {
+          post recipes_path, params: { recipe: @recipe_params }
+        }.to change(user.recipes, :count).by(0)
+      end
+    end
+  end
 end
