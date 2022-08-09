@@ -1,0 +1,43 @@
+<tr>
+	<td>
+		<!-- Button trigger modal -->
+		<button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#staticBackdrop-<%= recipe.id %>">
+			<%= recipe.name %>
+		</button>
+
+		<!-- Modal -->
+		<div class="modal fade" id="staticBackdrop-<%= recipe.id %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdrop-<%= recipe.id %>Label" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="staticBackdrop-<%= recipe.id %>Label"><%= recipe.name %>の作り方</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<p class="lead">
+							<%= safe_join(recipe.text.split("\n"),tag(:br)) %>
+						</p>
+						<h6 class="mb-1">最近作った日</h6>
+						<% unless recipe.recent_at.nil? %>
+							<p><%= recipe.recent_at %></p>
+						<% else %>
+							<p>No Data</p>
+						<% end %>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+						<%= link_to "編集", edit_recipe_path(recipe.id), class: 'btn btn-primary' %>
+						<%= link_to "削除",recipe_path(recipe.id), method: :delete, data: { confirm: recipe.name + "のレシピを削除しますか？"}, class: 'btn btn-danger' %>
+					</div>
+				</div>
+			</div>
+		</div>
+	</td>
+	<td>
+	<% unless recipe.recent_at.nil? %>
+		<%= recipe.recent_at %>
+	<% else %>
+		No Data
+	<% end %>
+	</td>
+</tr>

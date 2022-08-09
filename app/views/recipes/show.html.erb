@@ -1,0 +1,29 @@
+<div class="container">
+	<div class="px-3 mb-4 bg-light rounded-1">
+		<div class="container-fluid py-5">
+			<h1 class="display-5 fw-bold"><%= @recipe.name %>の作り方</h3>
+			<p class="lead">
+				<%= safe_join(@recipe.text.split("\n"),tag(:br)) %>
+			</p>
+			<h6 class="mb-1">最近作った日</h5>
+			<% unless @recipe.recent_at.nil? %>
+				<%= @recipe.recent_at %>
+			<% else %>
+				No Data
+			<% end %>
+		</div>
+	</div>
+
+
+	<div class="row">
+		<div class="d-grid gap-2 col-4 mx-auto">
+			<%= link_to "戻る", recipes_path, class: 'btn btn-secondary' %>
+		</div>
+		<div class="d-grid gap-2 col-4 mx-auto">
+			<%= link_to "編集", edit_recipe_path, class: 'btn btn-primary' %>
+		</div>
+		<div class="d-grid gap-2 col-4 mx-auto">	
+		<%= link_to "削除",recipe_path(@recipe), method: :delete, data: { confirm: @recipe.name + "のレシピを削除しますか？"}, class: 'btn btn-danger' %>
+		</div>
+	</div>
+</div>
