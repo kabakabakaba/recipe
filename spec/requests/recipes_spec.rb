@@ -88,4 +88,8 @@ RSpec.describe 'Recipes', type: :request do
       end
     end
   end
+
+  describe 'PUT /recipes' do
+
+  end
 end
